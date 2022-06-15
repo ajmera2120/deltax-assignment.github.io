@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href=""> Music </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="celebs"> Artist </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="add"> Add </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="card mt-2" style="width: 65rem;">
+  <form>
+    <div class="form-group ml-2 mr-2">
+      <label for="name-label">Name</label>
+      <input type="text" [(ngModel)]="movieDetails.name" #name="ngModel" name="name" class="form-control"
+        id="name-input" placeholder="Music Name">
+      <small id="HelpBlock" class="form-text text-muted">
+        Enter the name of the music.
+      </small>
+    </div>
+    <div class="form-group ml-2 mr-2">
+      <label for="yearFormControlSelect">Year</label>
+      <select class="form-control col-md-2" id="yearFormControlSelect" [(ngModel)]="movieDetails.year" name="year">
+        <option *ngFor="let year of years">{{year}}</option>
+      </select>
+    </div>
+    <label class="ml-2" for="castFormControlSelect">Actors</label>
+    <div class="input-group form-group">
+      <div class="form-group mr-2">
+        <select class="form-control ml-2 mr-2" id="castFormControlSelect1">
+          <option *ngFor="let items of actors"><input type="checkbox" name="plot" [(ngModel)] ="movieDetails.plot">{{items.name}}</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-dark ml-2" data-toggle="modal" data-target="#addactor">
+        + Add Artists
+      </button>
+    </div>
+    <div class="form-group ml-2 mr-2">
+      <label for="name-label">Artwork</label>
+      <input type="text" [(ngModel)]="movieDetails.poster" #name="ngModel" name="poster" class="form-control"
+        id="poster-input" placeholder="Image URL">
+      <small id="HelpBlock" class="form-text text-muted">
+        Please paste the URL for the song poster here.
+      </small>
+    </div>
+    <button type="button" class="btn btn-dark ml-2 mb-2" (click)="submit()">ADD</button>
+  </form>
+  <small id="confirmation" class="form-text text-muted ml-2 mb-2"></small>
+</div>
+
+
+<div id="addactor" class=" modal fade card1 mt-5 " tabindex="-1" role="dialog" aria-hidden="true"
+  style="height: 600px; width: 600px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form>
+          <div class="form-group ml-2 mr-2">
+            <label for="name-label">Name</label>
+            <input type="text" [(ngModel)]="actorDetails.name" #name="ngModel" name="name" class="form-control"
+              id="name-input" placeholder="Artist Name">
+            <small id="HelpBlock" class="form-text text-muted">
+              Enter the name of the Artist.
+            </small>
+          </div>
+
+          <div class="form-group ml-2 mr-2 mt-2">
+            <label for="yearFormControlSelect">Date of Birth</label>
+            <input type="date" [(ngModel)]="actorDetails.dob" #name="ngModel" name="dob" class="form-control"
+              id="name-input" placeholder="">
+          </div>
+          <div class="form-group ml-2 mr-2">
+            <label for="plotFormControlTextarea">Bio</label>
+            <textarea class="form-control" [(ngModel)]="actorDetails.bio" name="bio" id="plotFormControlTextarea"
+              rows="5" placeholder="Actor's Bio"></textarea>
+          </div>
+          <button type="button" class="btn btn-dark ml-2 mb-2" (click)="submitActor()">ADD</button>
+        </form>
+        <small id="confirmationActor" class="form-text text-muted ml-2 mb-2"></small>
+      </div>
+      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

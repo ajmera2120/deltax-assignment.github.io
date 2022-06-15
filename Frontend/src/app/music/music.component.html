@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/"> Music </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="celebs"> Artist </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="add"> Add </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Artwork</th>
+      <th scope="col">Song</th>
+      <th scope="col">Date Of Release</th>
+      <th scope="col">Artist</th>
+      <!-- <th scope="col">Rate</th> -->
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let movies of movies">
+    <tr>
+      <th scope="row" style="width: 200px;"><img src={{movies.poster}} style="width: 185px;height: 278px;"></th>
+      <td style="width: 200px;">{{movies.name}}</td>
+      <td style="width: 160px;">{{movies.year}}</td>
+      <td style="width: 400px;">{{movies.plot}}</td>
+      <!-- <td style="width: 300px;">{{movies.cast}}</td> -->
+      <td>
+        <span class="table-edit"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0"
+            data-toggle="modal" data-target="#modal">Edit</button></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{movieDetails | json}}
+        <form>
+          <div class="form-group ml-2 mr-2">
+            <label for="name-label">Name</label>
+            <input type="text" [(ngModel)]="movieDetails.name" #name="ngModel" name="name" class="form-control"
+              id="name-input" placeholder="Music Name">
+            <small id="HelpBlock" class="form-text text-muted">
+              Enter the name of the music.
+            </small>
+          </div>
+          <div class="form-group ml-2 mr-2">
+            <label for="yearFormControlSelect">Year</label>
+            <select class="form-control col-md-2" id="yearFormControlSelect" [(ngModel)]="movieDetails.year"
+              name="year">
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+          <div class="form-group ml-2 mr-2">
+            <label for="plotFormControlTextarea">Plot</label>
+            <textarea class="form-control" [(ngModel)]="movieDetails.plot" name="plot" id="plotFormControlTextarea"
+              rows="5" placeholder="Plot of the Movie"></textarea>
+          </div>
+          <div class="form-group ml-2 mr-2">
+            <label for="name-label">Poster</label>
+            <input type="text" [(ngModel)]="movieDetails.poster" #name="ngModel" name="poster" class="form-control"
+              id="poster-input" placeholder="Poster's URL">
+            <small id="HelpBlock" class="form-text text-muted">
+              Please paste the URL for the poster here.
+            </small>
+          </div>
+          <div class="form-check form-check-inline ml-2">
+            <input class="form-check-input" type="radio" [(ngModel)]="movieDetails.type" name="type" id="inlineRadio1"
+              value="Movie">
+            <label class="form-check-label" for="inlineRadio1">Movie</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" [(ngModel)]="movieDetails.type" name="type" id="inlineRadio2"
+              value="Show">
+            <label class="form-check-label" for="inlineRadio2">Show</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="update()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
